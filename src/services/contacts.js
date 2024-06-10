@@ -29,3 +29,8 @@ export const patchContact = async (contactId, payload) => {
   });
   return result;
 };
+
+export const deleteContact = async (contactId) => {
+  const result = ContactsCollection.findByIdAndDelete(contactId);
+  return result;
+};
