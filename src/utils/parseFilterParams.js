@@ -1,6 +1,8 @@
 const parseContactType = (contactType) => {
   const isString = typeof contactType === 'string';
+
   if (!isString) return;
+
   const isContactType = (contactType) =>
     ['work', 'home', 'personal'].includes(contactType);
 
@@ -8,18 +10,8 @@ const parseContactType = (contactType) => {
 };
 
 const parseIsFavourite = (favourite) => {
-  const isFavourite = typeof favourite === 'string';
-
-  if (!isFavourite) {
-    return;
-  }
-
-  if (favourite === 'true') {
-    return true;
-  }
-
-  if (favourite === 'false') {
-    return false;
+  if (favourite === 'true' || favourite === 'false') {
+    return favourite;
   }
 };
 
