@@ -1,5 +1,10 @@
 import { ONE_MONTH } from '../constants/index.js';
-import { loginUser, refreshUser, registerUser } from '../services/auth.js';
+import {
+  loginUser,
+  logoutUser,
+  refreshUser,
+  registerUser,
+} from '../services/auth.js';
 
 const setupSessionCookies = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
@@ -52,4 +57,15 @@ export const refreshUserController = async (req, res) => {
       accessToken: session.accessToken,
     },
   });
+};
+
+export const logoutUserController = async (req, res) => {
+  if (req.cookies.sessionId) {
+    await logoutUser(req.cookies.sessionId);
+  }
+
+  res.clearCookie('sessionId');
+  res.clearCookie('refreshToken');
+
+  res.status(204).send();
 };
