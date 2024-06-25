@@ -7,8 +7,8 @@ import { FIFTEEN_MINUTES, ONE_MONTH } from '../constants/index.js';
 
 const createSession = () => {
   return {
-    accessToken: crypto.randomBytes(20).toString('base64'),
-    refreshToken: crypto.randomBytes(20).toString('base64'),
+    accessToken: crypto.randomBytes(30).toString('base64'),
+    refreshToken: crypto.randomBytes(30).toString('base64'),
     accessTokenValidUntil: Date.now() + FIFTEEN_MINUTES,
     refreshTokenValidUntil: Date.now() + ONE_MONTH,
   };
@@ -42,6 +42,25 @@ export const loginUser = async (userData) => {
 
   return Session.create({
     userId: user._id,
+    ...createSession(),
+  });
+};
+
+export const refreshUser = async ({ sessionId, refreshToken }) => {
+  const session = await Session.findOne({ userId: sessionId, refreshToken });
+
+  if (!session) {
+    throw createHttpError(401, 'Session not found');
+  }
+
+  if (Date.now() > session.refreshTokenValidUntil) {
+    throw createHttpError(401, 'Session expired');
+  }
+
+  await Session.deleteOne({ userId: sessionId, refreshToken });
+
+  return Session.create({
+    userId: session.userId,
     ...createSession(),
   });
 };
