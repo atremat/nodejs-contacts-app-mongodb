@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { EMAIL_REGEX } from '../../constants';
+import { EMAIL_REGEX } from '../../constants/index.js';
 
 const contactsSchema = new Schema(
   {
