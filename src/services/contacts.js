@@ -9,6 +9,7 @@ export const getAllContacts = async ({
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter = {},
+  userId,
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
@@ -21,6 +22,8 @@ export const getAllContacts = async ({
   if (filter.isFavourite) {
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
+
+  contactsQuery.where('userId').equals(userId);
 
   const [contactsCount, contacts] = await Promise.all([
     ContactsCollection.find().merge(contactsQuery).countDocuments(),
@@ -39,7 +42,7 @@ export const getAllContacts = async ({
   };
 };
 
-export const getContactById = async (contactId) => {
+export const getContactById = async ({ contactId, userId }) => {
   if (!mongoose.Types.ObjectId.isValid(contactId)) {
     console.log(
       '\x1b[41m%s\x1b[0m',
@@ -47,23 +50,31 @@ export const getContactById = async (contactId) => {
     );
     return null;
   }
-  const contact = await ContactsCollection.findById(contactId);
+  const contact = await ContactsCollection.findOne({ _id: contactId, userId });
+
   return contact;
 };
 
-export const addContact = async (payload) => {
-  const contact = await ContactsCollection.create(payload);
+export const addContact = async ({ payload, userId }) => {
+  const contact = await ContactsCollection.create({ ...payload, userId });
   return contact;
 };
 
-export const patchContact = async (contactId, payload) => {
-  const result = ContactsCollection.findByIdAndUpdate(contactId, payload, {
-    new: true,
-  });
+export const patchContact = async ({ contactId, contact, userId }) => {
+  const result = ContactsCollection.findOneAndUpdate(
+    { _id: contactId, userId },
+    contact,
+    {
+      new: true,
+    },
+  );
   return result;
 };
 
-export const deleteContact = async (contactId) => {
-  const result = ContactsCollection.findByIdAndDelete(contactId);
+export const deleteContact = async ({ contactId, userId }) => {
+  const result = ContactsCollection.findOneAndDelete({
+    _id: contactId,
+    userId,
+  });
   return result;
 };
