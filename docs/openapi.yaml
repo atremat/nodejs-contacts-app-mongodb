@@ -4,7 +4,7 @@ info:
   title: Contacts app
   license:
     name: Apache 2.0
-    url: <http://www.apache.org/licenses/LICENSE-2.0.html>
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: >
     This is a documentation of contacts app
 tags:
@@ -13,14 +13,16 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
-  - url: <https://contacts-app-mm7s.onrender.com>
-  - url: <http://localhost:3000>
+  - url: https://contacts-app-mm7s.onrender.com
+  - url: http://localhost:3000
 paths:
   /contacts/{id}:
     get:
       $ref: ../swagger/paths/contacts/{id}/get.yaml
     patch:
       $ref: ../swagger/paths/contacts/{id}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/contacts/{id}/delete.yaml
   /contacts:
     post:
       $ref: ../swagger/paths/contacts/post.yaml
