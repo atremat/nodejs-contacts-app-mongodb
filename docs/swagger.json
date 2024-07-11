@@ -5,16 +5,16 @@
     "title": "Contacts app",
     "license": {
       "name": "Apache 2.0",
-      "url": "<http://www.apache.org/licenses/LICENSE-2.0.html>"
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "description": "This is a documentation of contacts app\n"
   },
   "servers": [
     {
-      "url": "<http://localhost:3000>"
+      "url": "https://contacts-app-mm7s.onrender.com"
     },
     {
-      "url": "<https://example.com/api/v1>"
+      "url": "http://localhost:3000"
     }
   ],
   "tags": [
@@ -82,8 +82,8 @@
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       },
@@ -110,6 +110,56 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "Contact's name",
+                    "type": "string",
+                    "example": "Yulia Shevchenko"
+                  },
+                  "phoneNumber": {
+                    "description": "Contact's phone number",
+                    "type": "string",
+                    "example": "+380000000001"
+                  },
+                  "email": {
+                    "description": "Contact's email",
+                    "type": "string",
+                    "example": "oleh1@example.com"
+                  },
+                  "isFavourite": {
+                    "description": "Contact is favourite",
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "contactType": {
+                    "description": "Contacts type",
+                    "type": "string",
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ]
+                  },
+                  "userId": {
+                    "description": "Contact's owner UserId",
+                    "type": "string",
+                    "example": "6687bf311807d5a3df71bf1c"
+                  },
+                  "photo": {
+                    "description": "Link to contact's photo",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Patch contact by id",
@@ -140,8 +190,40 @@
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Delete contact by id",
+        "operationId": "deleteContact",
+        "description": "Delete contact by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "665c7107b4570a0fe55ea884"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Contact deleted successfully"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       }
@@ -246,8 +328,8 @@
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       },
@@ -393,8 +475,8 @@
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       }
@@ -467,8 +549,8 @@
       }
     },
     "responses": {
-      "401": {
-        "description": "Unauthorized error",
+      "404": {
+        "description": "Contact not found",
         "content": {
           "application/json": {
             "schema": {
@@ -481,11 +563,11 @@
               "properties": {
                 "status": {
                   "type": "integer",
-                  "example": 401
+                  "example": 404
                 },
                 "message": {
                   "type": "string",
-                  "example": "Unauthorized"
+                  "example": "Contact not found"
                 },
                 "data": {
                   "type": "object",
@@ -495,7 +577,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Unauthorized"
+                      "example": "Contact not found"
                     }
                   }
                 }
