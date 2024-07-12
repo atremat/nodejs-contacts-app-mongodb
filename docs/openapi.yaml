@@ -10,24 +10,23 @@ info:
 tags:
   - name: Contacts
     description: Operations with contacts.
-  - name: Auth
-    description: Auth operations.
+
 servers:
   - url: https://contacts-app-mm7s.onrender.com
   - url: http://localhost:3000
 paths:
   /contacts/{id}:
     get:
-      $ref: ../swagger/paths/contacts/{id}/get.yaml
+      $ref: '../swagger/paths/contacts/{id}/get.yaml'
     patch:
-      $ref: ../swagger/paths/contacts/{id}/patch.yaml
+      $ref: '../swagger/paths/contacts/{id}/patch.yaml'
     delete:
-      $ref: ../swagger/paths/contacts/{id}/delete.yaml
+      $ref: '../swagger/paths/contacts/{id}/delete.yaml'
   /contacts:
     post:
-      $ref: ../swagger/paths/contacts/post.yaml
+      $ref: '../swagger/paths/contacts/post.yaml'
     get:
-      $ref: ../swagger/paths/contacts/get.yaml
+      $ref: '../swagger/paths/contacts/get.yaml'
 components:
   securitySchemes:
     bearerAuth:

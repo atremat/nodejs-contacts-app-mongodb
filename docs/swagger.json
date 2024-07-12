@@ -21,10 +21,6 @@
     {
       "name": "Contacts",
       "description": "Operations with contacts."
-    },
-    {
-      "name": "Auth",
-      "description": "Auth operations."
     }
   ],
   "paths": {
