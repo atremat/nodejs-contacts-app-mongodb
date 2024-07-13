@@ -141,11 +141,6 @@
                       "personal"
                     ]
                   },
-                  "userId": {
-                    "description": "Contact's owner UserId",
-                    "type": "string",
-                    "example": "6687bf311807d5a3df71bf1c"
-                  },
                   "photo": {
                     "description": "Link to contact's photo",
                     "type": "string",
@@ -244,10 +239,7 @@
                 "type": "object",
                 "required": [
                   "name",
-                  "phoneNumber",
-                  "isFavourite",
-                  "contactType",
-                  "userId"
+                  "phoneNumber"
                 ],
                 "properties": {
                   "name": {
@@ -278,11 +270,6 @@
                       "home",
                       "personal"
                     ]
-                  },
-                  "userId": {
-                    "description": "Contact's owner UserId",
-                    "type": "string",
-                    "example": "6687bf311807d5a3df71bf1c"
                   },
                   "photo": {
                     "description": "Link to contact's photo",
