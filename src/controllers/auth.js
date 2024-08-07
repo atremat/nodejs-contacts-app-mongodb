@@ -12,11 +12,17 @@ const setupSessionCookies = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_MONTH),
+    sameSite: 'None',
+    secure: true,
+    // secure: process.env.NODE_ENV === 'production',
   });
 
   res.cookie('sessionId', session.userId, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_MONTH),
+    sameSite: 'None',
+    secure: true,
+    // secure: process.env.NODE_ENV === 'production',
   });
 };
 

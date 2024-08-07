@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "build": "npm run build-docs",
     "build-docs": "redocly bundle --ext json -o docs/swagger.json",
@@ -18,6 +19,7 @@
     "@redocly/cli": "^1.17.1",
     "eslint": "^9.3.0",
     "globals": "^15.3.0",
+    "nodemon": "^3.1.4",
     "pino-pretty": "^11.1.0"
   },
   "dependencies": {
